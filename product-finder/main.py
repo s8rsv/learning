@@ -1,19 +1,25 @@
-def change_price(products, name, new_price):
-    if name in products:
-        products[name] = new_price
-        return 1
-    return -1
-
 products = {
     "mouse": 1500,
     "keyboard": 3000,
     "monitor": 12000
 }
 
+name = input("Введите название товара: ").lower()
+def find_product(products, name):
+    if name in products:
+        return products[name]
+    return None
 
-    
 
+result = find_product(products, name)
+print(result)
+print(products)
 
+def change_price(products, name, new_price):
+    if name in products:
+        products[name] = new_price
+        return 1
+    return -1
 
 name = input("Введите товар: ").lower()
 new_price = int(input("Введите новую цену: "))
@@ -43,21 +49,4 @@ if result:
 else:
     print("Товар не найден")
 
-print("Все товары:", products)
-
-while True:
-    print("1. Найти товар")
-    print("2. Выйти")
-
-    choice = input("Выберите действие: ")
-
-    if choice == "2":
-        break
-    else:
-        def find_product(products, name, price):
-        if name in products:
-            products[name] = new_price
-            return True
-        return False
-        
-
+print(" товары:", products)
