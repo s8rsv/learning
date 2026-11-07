@@ -36,7 +36,7 @@ print("Все товары:", products)
 
 def remove_product(products, name):
     if name in products:
-        del products[name]
+        products.pop(name)
         return True
     return False
 

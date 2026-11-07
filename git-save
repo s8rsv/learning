@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+if ! root=$(git rev-parse --show-toplevel 2>/dev/null); then
+    echo "Error: not inside a Git repository."
+    exit 1
+fi
+
+cd "$root"
+
+if [[ -z "$(git status --porcelain)" ]]; then
+    echo "No changes to commit."
+    exit 0
+fi
+
+echo "===== Changed files ====="
+git status --short
+
+git add -A
+
+if git diff --cached --quiet; then
+    echo "Nothing to commit."
+    exit 0
+fi
+
+echo
+echo "===== Changes summary ====="
+git --no-pager diff --cached --stat
+echo
+
+if [[ $# -gt 0 ]]; then
+    message="$*"
+else
+    read -r -p "Commit message: " message
+fi
+
+if [[ -z "$message" ]]; then
+    echo "Commit message cannot be empty."
+    exit 1
+fi
+
+echo
+read -r -p "Create commit and push? [y/N] " confirm
+
+if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+    echo "Cancelled."
+    exit 0
+fi
+
+git commit -m "$message"
+git push
+
+echo
+echo "Successfully pushed to GitHub."
