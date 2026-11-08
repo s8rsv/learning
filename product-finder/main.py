@@ -4,35 +4,16 @@ products = {
     "monitor": 12000
 }
 
-name = input("Введите название товара: ").lower()
 def find_product(products, name):
     if name in products:
         return products[name]
     return None
 
-
-result = find_product(products, name)
-print(result)
-print(products)
-
 def change_price(products, name, new_price):
     if name in products:
         products[name] = new_price
-        return 1
-    return -1
-
-name = input("Введите товар: ").lower()
-new_price = int(input("Введите новую цену: "))
-
-result = change_price(products, name, new_price)
-
-if result == 1:
-    print("Цена успешно изменена!")
-    print("Новая цена:", products[name])
-else:
-    print("Товар не найден")
-
-print("Все товары:", products)
+        return True
+    return False
 
 def remove_product(products, name):
     if name in products:
@@ -40,13 +21,55 @@ def remove_product(products, name):
         return True
     return False
 
-name = input("Введите товар, который хотите удалить: ").lower()
+while True:
+    print("1. Find product")
+    print("2. Change price")
+    print("3. Remove product")
+    print("4. Shopping cart")
+    print("5. Show all products")
+    print("6. Exit")
 
-result = remove_product(products, name)
+    choice = input("Choose an option: ")
+    if choice == "1":
+        print("You Selected: Find Product")
 
-if result:
-    print("Товар успешно удалён!")
-else:
-    print("Товар не найден")
+        name = input("Enter product name: ").lower()
+        result =  find_product(products, name)
 
-print(" товары:", products)
+        if result is not None:
+            print("Price:", result)   
+        else:
+            print("Product not found")
+
+    elif choice == "2":
+        print("You selected: Change price")
+
+        name = input("Enter product name: ").lower()
+        new_price = int(input("Enter new price: "))
+        result = change_price(products, name, new_price)
+
+        if result is True:
+            print("New Price:", products[name])
+        else:
+            print("Target not found")
+    
+    elif choice == "3":
+        print("You selected: Remove Product")
+        
+        name = input("Enter product name: ").lower()
+        result = remove_product(products, name)
+
+        if result is True:
+            print("Sucessfully removed", name)
+        else:
+            print("Target not found")    
+    
+    elif choice == "4":
+        print("You selected: Shopping Cart")
+
+    elif choice == "5":
+        print("You selected: Show All products")
+    elif choice == "6":
+        break
+    else:
+        print("Invalid Option")
