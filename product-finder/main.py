@@ -21,6 +21,12 @@ def remove_product(products, name):
         return True
     return False
 
+def show_all_products(products):
+    for name, price in products.items():
+        print(name, price)
+    return True
+
+
 while True:
     print("1. Find product")
     print("2. Change price")
@@ -60,15 +66,17 @@ while True:
         result = remove_product(products, name)
 
         if result is True:
-            print("Sucessfully removed", name)
+            print("Sucсessfully removed", name)
         else:
             print("Target not found")    
     
     elif choice == "4":
         print("You selected: Shopping Cart")
-
+ 
     elif choice == "5":
         print("You selected: Show All products")
+        show_all_products(products)
+
     elif choice == "6":
         break
     else:
